@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile App - Welcome</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="splash-screen">
+    <div class="splash-container">
+        <div class="splash-content">
+            <div class="logo-container">
+                <div class="logo-circle">
+                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="25" fill="#4A90E2" stroke="#fff" stroke-width="2"/>
+                        <path d="M20 30L26 36L40 22" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1 class="app-title">MobileApp</h1>
+                <p class="app-subtitle">Platform Digital Terpercaya</p>
+            </div>
+            
+            <div class="loading-animation">
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="splash-footer">
+            <p>&copy; 2025 Dikembangkan oleh <span id="developer-name" class="developer-link">Arvin Erlangga.M.Sc.IT</span></p>
+        </footer>
+    </div>
+
+    <!-- Admin Access Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Admin Access</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="adminForm">
+                    <div class="form-group">
+                        <label for="adminCode">Masukkan Kode Akses:</label>
+                        <input type="password" id="adminCode" placeholder="Kode akses rahasia" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Masuk sebagai Admin</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Auto redirect to login after splash animation
+        setTimeout(() => {
+            checkAuthAndRedirect();
+        }, 3000);
+
+        // Admin access functionality
+        document.getElementById('developer-name').addEventListener('click', () => {
+            document.getElementById('adminModal').style.display = 'block';
+        });
+
+        document.querySelector('.close').addEventListener('click', () => {
+            document.getElementById('adminModal').style.display = 'none';
+        });
+
+        document.getElementById('adminForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const code = document.getElementById('adminCode').value;
+            
+            try {
+                const response = await fetch('/api/admin-login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ code })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    window.location.href = 'dashboard-admin.html';
+                } else {
+                    showError(data.error || 'Kode akses tidak valid');
+                }
+            } catch (error) {
+                showError('Terjadi kesalahan jaringan');
+            }
+        });
+
+        function checkAuthAndRedirect() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (token && user) {
+                const userData = JSON.parse(user);
+                if (userData.isAdmin) {
+                    window.location.href = 'dashboard-admin.html';
+                } else {
+                    window.location.href = 'dashboard-pengguna.html';
+                }
+            } else {
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - MobileApp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header admin">
+            <div class="header-top">
+                <div class="user-info">
+                    <div class="user-avatar admin">
+                        <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855-.143.268-.276.56-.395.872.705.157 1.472.257 2.282.287V1.077zM4.249 3.539c.142-.384.304-.744.481-1.078a6.7 6.7 0 0 1 .597-.933A7.01 7.01 0 0 0 3.051 3.05c.362.184.763.349 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9.124 9.124 0 0 1-1.565-.667A6.964 6.964 0 0 0 1.018 7.5h2.49zm1.4-2.741a12.344 12.344 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332zM8.5 5.09V7.5h2.99a12.342 12.342 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.51 8.5c.035.987.176 1.914.399 2.741A13.612 13.612 0 0 1 7.5 10.91V8.5H4.51zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741H8.5zm-3.282 3.696c.12.312.252.604.395.872.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.11 2.276a6.696 6.696 0 0 1-.598-.933 8.853 8.853 0 0 1-.481-1.079 8.38 8.38 0 0 0-1.198.49 7.01 7.01 0 0 0 2.276 1.522zm-1.383-2.964A13.36 13.36 0 0 1 3.508 8.5h-2.49a6.963 6.963 0 0 0 1.362 3.675c.47-.258.995-.482 1.565-.667zm6.728 2.964a7.009 7.009 0 0 0 2.275-1.521 8.376 8.376 0 0 0-1.197-.49 8.853 8.853 0 0 1-.481 1.078 6.688 6.688 0 0 1-.597.933zM8.5 11.909v3.014c.67-.204 1.335-.82 1.887-1.855.143-.268.276-.56.395-.872A12.63 12.63 0 0 0 8.5 11.91zm3.555-.401c.57.185 1.095.409 1.565.667A6.963 6.963 0 0 0 14.982 8.5h-2.49a13.36 13.36 0 0 1-.437 3.008zM14.982 7.5a6.963 6.963 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008h2.49zM11.27 2.461c.177.334.339.694.482 1.078a8.368 8.368 0 0 0 1.196-.49 7.01 7.01 0 0 0-2.275-1.52c.218.283.418.597.597.932zm-.488 1.343a7.765 7.765 0 0 0-.395-.872C9.835 1.897 9.17 1.282 8.5 1.077V4.09c.81-.03 1.577-.13 2.282-.287z"/>
+                        </svg>
+                    </div>
+                    <div class="user-details">
+                        <h3>Admin Panel</h3>
+                        <span class="status-badge admin">Administrator</span>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Admin Stats -->
+        <div class="admin-stats">
+            <div class="stat-card">
+                <h4 id="totalUsers">0</h4>
+                <p>Total Pengguna</p>
+            </div>
+            <div class="stat-card">
+                <h4 id="premiumRequests">0</h4>
+                <p>Permintaan Premium</p>
+            </div>
+            <div class="stat-card">
+                <h4 id="totalMovies">0</h4>
+                <p>Total Film</p>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="showTab('users')">Pengguna</button>
+            <button class="tab-btn" onclick="showTab('movies')">Film</button>
+            <button class="tab-btn" onclick="showTab('vouchers')">Voucher</button>
+            <button class="tab-btn" onclick="showTab('chat')">Chat</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Users Tab -->
+            <div id="usersTab" class="tab-pane active">
+                <div class="section-header">
+                    <h3>Manajemen Pengguna</h3>
+                    <p>Kelola semua pengguna dan permintaan premium</p>
+                </div>
+                <div id="usersList" class="admin-list">
+                    <div class="loading-card">
+                        <div class="loading-spinner"></div>
+                        <p>Memuat data pengguna...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Movies Tab -->
+            <div id="moviesTab" class="tab-pane">
+                <div class="section-header">
+                    <h3>Manajemen Film</h3>
+                    <button class="btn btn-primary" onclick="showAddMovieModal()">Tambah Film</button>
+                </div>
+                <div id="adminMoviesList" class="admin-list">
+                    <div class="loading-card">
+                        <div class="loading-spinner"></div>
+                        <p>Memuat data film...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vouchers Tab -->
+            <div id="vouchersTab" class="tab-pane">
+                <div class="section-header">
+                    <h3>Manajemen Voucher</h3>
+                    <button class="btn btn-primary" onclick="showCreateVoucherModal()">Buat Voucher</button>
+                </div>
+                <div id="vouchersList" class="admin-list">
+                    <div class="loading-card">
+                        <div class="loading-spinner"></div>
+                        <p>Memuat data voucher...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Tab -->
+            <div id="chatTab" class="tab-pane">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h3>Live Chat dengan Pengguna</h3>
+                        <button class="btn btn-outline btn-sm" onclick="loadChatMessages()">Refresh</button>
+                    </div>
+                    <div id="chatMessages" class="chat-messages admin">
+                        <div class="loading-card">
+                            <div class="loading-spinner"></div>
+                            <p>Memuat pesan...</p>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <form id="chatForm" class="chat-form">
+                            <input type="text" id="chatInput" placeholder="Balas sebagai admin..." required>
+                            <button type="submit" class="btn btn-primary">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M15.854.146a.5.5 0 0 1 .11.54L13.026 8l2.938 7.314a.5.5 0 0 1-.538.685l-13-2a.5.5 0 0 1-.38-.619l2-8a.5.5 0 0 1 .947-.205L13.026 8 .933 1.175a.5.5 0 0 1-.38-.619l2-8A.5.5 0 0 1 3 .146l13 2z"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Movie Modal -->
+    <div id="addMovieModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tambah Film Baru</h3>
+                <span class="close" onclick="closeModal('addMovieModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="addMovieForm">
+                    <div class="form-group">
+                        <label for="movieTitle">Judul Film</label>
+                        <input type="text" id="movieTitle" placeholder="Masukkan judul film" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="movieDescription">Deskripsi</label>
+                        <textarea id="movieDescription" placeholder="Deskripsi film (opsional)" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="movieCategory">Kategori</label>
+                        <select id="movieCategory" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="horor">Horor</option>
+                            <option value="komedi">Komedi</option>
+                            <option value="adventure">Adventure</option>
+                            <option value="romantis">Romantis</option>
+                            <option value="ftv">FTV</option>
+                            <option value="anak">Anak-Anak</option>
+                            <option value="umum">Umum</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="movieUrl">URL Google Drive</label>
+                        <input type="url" id="movieUrl" placeholder="https://drive.google.com/..." required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Tambah Film</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Voucher Modal -->
+    <div id="createVoucherModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Buat Voucher Baru</h3>
+                <span class="close" onclick="closeModal('createVoucherModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="createVoucherForm">
+                    <div class="form-group">
+                        <label for="voucherCode">Kode Voucher</label>
+                        <input type="text" id="voucherCode" placeholder="Masukkan kode voucher" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="voucherAmount">Nominal (Rp)</label>
+                        <input type="number" id="voucherAmount" placeholder="50000" min="1000" step="1000" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Buat Voucher</button>
+                </form>
+            </div>
+        </div>
+        
+        <footer class="page-footer">
+            <p>&copy; 2025 Dikembangkan oleh <span class="developer-link">Arvin Erlangga.M.Sc.IT</span></p>
+        </footer>
+    </div>
+
+    <div id="errorToast" class="toast error"></div>
+    <div id="successToast" class="toast success"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize admin dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAdminAuth();
+            loadUsers();
+            loadMovies();
+            loadChatMessages();
+            loadStats();
+        });
+
+        async function checkAdminAuth() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (!token || !user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const userData = JSON.parse(user);
+            if (!userData.isAdmin) {
+                window.location.href = 'dashboard-pengguna.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = 'login.html';
+                }
+            } catch (error) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+            }
+        }
+
+        async function loadStats() {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch('/api/admin/users', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const users = await response.json();
+                    document.getElementById('totalUsers').textContent = users.length;
+                    document.getElementById('premiumRequests').textContent = 
+                        users.filter(user => user.premium_requested && !user.is_premium).length;
+                }
+
+                // Load movies count
+                const moviesResponse = await fetch('/api/movies', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (moviesResponse.ok) {
+                    const movies = await moviesResponse.json();
+                    document.getElementById('totalMovies').textContent = movies.length;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadUsers() {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch('/api/admin/users', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const users = await response.json();
+                    displayUsers(users);
+                } else {
+                    throw new Error('Failed to load users');
+                }
+            } catch (error) {
+                document.getElementById('usersList').innerHTML = `
+                    <div class="error-card">
+                        <p>Gagal memuat data pengguna</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayUsers(users) {
+            const usersList = document.getElementById('usersList');
+            
+            if (users.length === 0) {
+                usersList.innerHTML = `
+                    <div class="empty-state">
+                        <p>Belum ada pengguna terdaftar</p>
+                    </div>
+                `;
+                return;
+            }
+
+            usersList.innerHTML = users.map(user => `
+                <div class="admin-item">
+                    <div class="item-info">
+                        <h4>${user.username}</h4>
+                        <p>${user.email}</p>
+                        <span class="status-badge ${user.is_premium ? 'premium' : ''}">
+                            ${user.is_premium ? 'Premium' : 'Biasa'}
+                        </span>
+                        ${user.premium_requested && !user.is_premium ? 
+                            '<span class="status-badge pending">Menunggu Verifikasi</span>' : ''}
+                        <p class="balance">Saldo: Rp ${Number(user.balance || 0).toLocaleString('id-ID')}</p>
+                    </div>
+                    <div class="item-actions">
+                        ${user.premium_requested && !user.is_premium ? 
+                            `<button class="btn btn-primary btn-sm" onclick="approvePremium(${user.id})">
+                                Setujui Premium
+                            </button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadMovies() {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch('/api/movies', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const movies = await response.json();
+                displayAdminMovies(movies);
+            } catch (error) {
+                document.getElementById('adminMoviesList').innerHTML = `
+                    <div class="error-card">
+                        <p>Gagal memuat data film</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayAdminMovies(movies) {
+            const moviesList = document.getElementById('adminMoviesList');
+            
+            if (movies.length === 0) {
+                moviesList.innerHTML = `
+                    <div class="empty-state">
+                        <p>Belum ada film yang ditambahkan</p>
+                    </div>
+                `;
+                return;
+            }
+
+            moviesList.innerHTML = movies.map(movie => `
+                <div class="admin-item">
+                    <div class="item-info">
+                        <h4>${movie.title}</h4>
+                        <p>${movie.description || 'Tidak ada deskripsi'}</p>
+                        <small>Ditambahkan: ${new Date(movie.created_at).toLocaleDateString('id-ID')}</small>
+                    </div>
+                    <div class="item-actions">
+                        <a href="${movie.google_drive_url}" target="_blank" class="btn btn-outline btn-sm">
+                            Lihat File
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadChatMessages() {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch('/api/chat', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const messages = await response.json();
+                displayAdminChatMessages(messages);
+            } catch (error) {
+                document.getElementById('chatMessages').innerHTML = `
+                    <div class="error-card">
+                        <p>Gagal memuat pesan</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayAdminChatMessages(messages) {
+            const chatMessages = document.getElementById('chatMessages');
+            
+            if (messages.length === 0) {
+                chatMessages.innerHTML = `
+                    <div class="empty-state">
+                        <p>Belum ada pesan dari pengguna</p>
+                    </div>
+                `;
+                return;
+            }
+
+            chatMessages.innerHTML = messages.map(message => `
+                <div class="chat-message ${message.is_admin ? 'admin' : 'user'}">
+                    <div class="message-content">
+                        <p>${message.message}</p>
+                        <span class="message-time">${new Date(message.created_at).toLocaleString('id-ID')}</span>
+                    </div>
+                    <div class="message-avatar">
+                        ${message.is_admin ? 'Admin' : (message.username || 'User')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function approvePremium(userId) {
+            const token = localStorage.getItem('token');
+            
+            try {
+                const response = await fetch(`/api/admin/approve-premium/${userId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showSuccess('Premium status berhasil disetujui');
+                    loadUsers(); // Reload users list
+                    loadStats(); // Reload stats
+                } else {
+                    showError(data.error || 'Gagal menyetujui premium');
+                }
+            } catch (error) {
+                showError('Terjadi kesalahan jaringan');
+            }
+        }
+
+        // Form submissions
+        document.getElementById('addMovieForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('movieTitle').value;
+            const description = document.getElementById('movieDescription').value;
+            const category = document.getElementById('movieCategory').value;
+            const googleDriveUrl = document.getElementById('movieUrl').value;
+            const token = localStorage.getItem('token');
+            
+            try {
+                const response = await fetch('/api/admin/movies', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ title, description, category, googleDriveUrl })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showSuccess('Film berhasil ditambahkan');
+                    closeModal('addMovieModal');
+                    loadMovies(); // Reload movies
+                    loadStats(); // Reload stats
+                    document.getElementById('addMovieForm').reset();
+                } else {
+                    showError(data.error || 'Gagal menambahkan film');
+                }
+            } catch (error) {
+                showError('Terjadi kesalahan jaringan');
+            }
+        });
+
+        document.getElementById('createVoucherForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const code = document.getElementById('voucherCode').value;
+            const amount = document.getElementById('voucherAmount').value;
+            const token = localStorage.getItem('token');
+            
+            try {
+                const response = await fetch('/api/admin/vouchers', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ code, amount: parseFloat(amount) })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showSuccess('Voucher berhasil dibuat');
+                    closeModal('createVoucherModal');
+                    document.getElementById('createVoucherForm').reset();
+                } else {
+                    showError(data.error || 'Gagal membuat voucher');
+                }
+            } catch (error) {
+                showError('Terjadi kesalahan jaringan');
+            }
+        });
+
+        document.getElementById('chatForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const message = document.getElementById('chatInput').value.trim();
+            if (!message) return;
+
+            const token = localStorage.getItem('token');
+            
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ message })
+                });
+
+                if (response.ok) {
+                    document.getElementById('chatInput').value = '';
+                    loadChatMessages(); // Reload messages
+                } else {
+                    showError('Gagal mengirim pesan');
+                }
+            } catch (error) {
+                showError('Terjadi kesalahan jaringan');
+            }
+        });
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-pane').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function showAddMovieModal() {
+            document.getElementById('addMovieModal').style.display = 'block';
+        }
+
+        function showCreateVoucherModal() {
+            document.getElementById('createVoucherModal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        }
+
+        // Auto-refresh chat every 30 seconds
+        setInterval(loadChatMessages, 30000);
+    </script>
+</body>
+</html>
